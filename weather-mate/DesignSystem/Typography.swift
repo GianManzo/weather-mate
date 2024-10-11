@@ -27,3 +27,11 @@ struct LineHeight {
     static let normal: CGFloat = 1.5
     static let heading: CGFloat = 1.2
 }
+
+
+extension UILabel {
+    func applyDesign(style: UIFont) {
+        self.font = style // Usando a propriedade de fonte do estilo
+        self.textColor = Colors.textPrimaryColor // Definindo a cor do texto
+    }
+}

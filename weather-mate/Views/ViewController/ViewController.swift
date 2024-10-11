@@ -16,15 +16,8 @@ class ViewController: UIViewController {
     
     
     private func setupView() {
-         setHierarchy()
-         ViewConstraints.setupConstraints(
-             for: self,
-             backgroundView: backgroundView,
-             headerView: headerView,
-             headerCityLabel: headerCityLabel,
-             temperatureCityLabel: temperatureCityLabel,
-             weatherIconImageView: weatherIconImageView
-         )
+        setHierarchy()
+        setupViewConstraints()
      }
     
     private func setHierarchy() {
@@ -36,7 +29,7 @@ class ViewController: UIViewController {
         headerView.addSubview(weatherIconImageView)
     }
     
-    fileprivate lazy var backgroundView: UIImageView = {
+    lazy var backgroundView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -47,7 +40,7 @@ class ViewController: UIViewController {
         return imageView
     }()
     
-    fileprivate lazy var headerView: UIView = {
+    lazy var headerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -58,7 +51,7 @@ class ViewController: UIViewController {
         return view
     }()
     
-    fileprivate lazy var headerCityLabel: UILabel = {
+    lazy var headerCityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
       
@@ -71,7 +64,7 @@ class ViewController: UIViewController {
         return label
     }()
     
-    fileprivate lazy var temperatureCityLabel: UILabel = {
+    lazy var temperatureCityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -84,7 +77,7 @@ class ViewController: UIViewController {
         return label
     }()
     
-    fileprivate lazy var weatherIconImageView: UIImageView = {
+    lazy var weatherIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         

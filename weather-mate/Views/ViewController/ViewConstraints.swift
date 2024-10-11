@@ -1,26 +1,18 @@
 import UIKit
 
-struct ViewConstraints {
-    
-    static func setupConstraints(
-        for viewController: ViewController,
-        backgroundView: UIView,
-        headerView: UIView,
-        headerCityLabel: UILabel,
-        temperatureCityLabel: UILabel,
-        weatherIconImageView: UIImageView
-    ) {
+extension ViewController {
+    func setupViewConstraints() {
         NSLayoutConstraint.activate([
-            backgroundView.topAnchor.constraint(equalTo: viewController.view.topAnchor),
-            backgroundView.leadingAnchor.constraint(equalTo: viewController.view.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: viewController.view.trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor)
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.topAnchor, constant: 60),
-            headerView.leadingAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.leadingAnchor, constant: 35),
-            headerView.trailingAnchor.constraint(equalTo: viewController.view.safeAreaLayoutGuide.trailingAnchor, constant: -35),
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
+            headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 35),
+            headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -35),
             headerView.heightAnchor.constraint(equalToConstant: 169)
         ])
         
