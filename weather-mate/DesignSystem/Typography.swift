@@ -23,15 +23,41 @@ struct FontStyles {
     static let bigBold = UIFont.boldSystemFont(ofSize: FontSizes.size70)
 }
 
-struct LineHeight {
-    static let normal: CGFloat = 1.5
-    static let heading: CGFloat = 1.2
+enum TypographyStyle {
+    case small
+    case regular
+    case big
+    case smallBold
+    case regularBold
+    case bigBold
+
+    var font: UIFont {
+        switch self {
+        case .small:
+            return FontStyles.small
+        case .regular:
+            return FontStyles.regular
+        case .big:
+            return FontStyles.big
+        case .smallBold:
+            return FontStyles.smallBold
+        case .regularBold:
+            return FontStyles.regularBold
+        case .bigBold:
+            return FontStyles.bigBold
+        }
+    }
 }
 
 
 extension UILabel {
-    func applyDesign(style: UIFont) {
-        self.font = style // Usando a propriedade de fonte do estilo
-        self.textColor = Colors.textPrimaryColor // Definindo a cor do texto
+    func applyTypographyStyle(
+        font: TypographyStyle = .regular,
+        textColor: UIColor = Colors.textPrimaryColor!,
+        alignment: NSTextAlignment = .center
+    ) {
+        self.font = font.font
+        self.textColor = textColor
+        self.textAlignment = alignment
     }
 }

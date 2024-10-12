@@ -56,9 +56,7 @@ class ViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
       
         label.text = "New York"
-        label.font = FontStyles.regular
-        label.textAlignment = .center
-        label.textColor = Colors.textPrimaryColor
+        label.applyTypographyStyle()
         
         
         return label
@@ -68,12 +66,10 @@ class ViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        label.textAlignment = .left
         label.text = "25°C"
-        label.font = FontStyles.bigBold
-        label.textColor = Colors.textPrimaryColor
+        label.applyTypographyStyle(font: .bigBold, alignment: .left)
         
-        
+
         return label
     }()
     
