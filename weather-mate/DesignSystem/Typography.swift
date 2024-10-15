@@ -17,10 +17,12 @@ struct FontStyles {
     static let small = UIFont.systemFont(ofSize: FontSizes.size12)
     static let regular = UIFont.systemFont(ofSize: FontSizes.size20)
     static let big = UIFont.systemFont(ofSize: FontSizes.size70)
-    
+
     static let smallBold = UIFont.boldSystemFont(ofSize: FontSizes.size12)
     static let regularBold = UIFont.boldSystemFont(ofSize: FontSizes.size20)
     static let bigBold = UIFont.boldSystemFont(ofSize: FontSizes.size70)
+
+    static let smallSemiBold = UIFont.systemFont(ofSize: FontSizes.size12, weight: .semibold)
 }
 
 enum TypographyStyle {
@@ -30,6 +32,7 @@ enum TypographyStyle {
     case smallBold
     case regularBold
     case bigBold
+    case smallSemiBold
 
     var font: UIFont {
         switch self {
@@ -45,10 +48,11 @@ enum TypographyStyle {
             return FontStyles.regularBold
         case .bigBold:
             return FontStyles.bigBold
+        case .smallSemiBold:
+            return FontStyles.smallSemiBold
         }
     }
 }
-
 
 extension UILabel {
     func applyTypographyStyle(
@@ -58,6 +62,6 @@ extension UILabel {
     ) {
         self.font = font.font
         self.textColor = textColor
-        self.textAlignment = alignment
+        textAlignment = alignment
     }
 }

@@ -10,5 +10,5 @@ import UIKit
 struct Colors {
     static let offWhite = UIColor(named: "offWhite")
     static let textPrimaryColor = UIColor(named: "textPrimaryColor")
-   
+    static let softGray = UIColor(named: "softGray")
 }
