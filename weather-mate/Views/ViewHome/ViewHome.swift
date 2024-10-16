@@ -7,22 +7,21 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewHome: UIViewController, ConfigurableView {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     } // loaded once when the screen appears only
 
     private func setupView() {
-        setHierarchy()
-        setupViewConstraints()
+        setupAddSubviews()
+        setupViewHomeConstraints()
     }
 
-    private func setHierarchy() {
-        view.addSubview(backgroundView)
-        view.addSubview(headerView)
-        view.addSubview(statsStackView)
+    func setupAddSubviews() {
+        addSubviews(backgroundView, headerView, statsStackView, hourlyForecastLabel, hourlyCollectionView)
 
+        // Adicionando subviews ao headerView
         headerView.addSubview(headerCityLabel)
         headerView.addSubview(temperatureCityLabel)
         headerView.addSubview(weatherIconImageView)
@@ -42,7 +41,7 @@ class ViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
-        view.backgroundColor = Colors.offWhite
+        view.backgroundColor = .offWhite
         view.layer.cornerRadius = 20
 
         return view
@@ -116,6 +115,39 @@ class ViewController: UIViewController {
 
         return imageView
     }()
+
+    lazy var hourlyForecastLabel: UILabel = {
+        createCustomLabel(text: "PREVISÃO POR HORA", font: .smallSemiBold, textColor: .offWhite, alignment: .center)
+    }()
+
+    lazy var hourlyCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 67, height: 84)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+
+        collectionView.backgroundColor = .red
+        collectionView.dataSource = self
+        collectionView.register(HourlyForecastCollectionViewCell.self, forCellWithReuseIdentifier: HourlyForecastCollectionViewCell.identifier)
+
+        return collectionView
+    }()
+}
+
+extension ViewHome: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyForecastCollectionViewCell.identifier, for: indexPath)
+
+        return cell
+    }
 }
 
 //    override func viewDidAppear(_ animated: Bool) {

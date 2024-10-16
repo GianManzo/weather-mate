@@ -1,7 +1,7 @@
 import UIKit
 
-extension ViewController {
-    func setupViewConstraints() {
+extension ViewHome {
+    func setupViewHomeConstraints() {
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -36,6 +36,20 @@ extension ViewController {
             statsStackView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
             statsStackView.widthAnchor.constraint(equalToConstant: 206),
             statsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            hourlyForecastLabel.topAnchor.constraint(equalTo: statsStackView.bottomAnchor, constant: 29),
+            hourlyForecastLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
+            hourlyForecastLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35),
+       
+        ])
+        
+        NSLayoutConstraint.activate([
+            hourlyCollectionView.topAnchor.constraint(equalTo: hourlyForecastLabel.bottomAnchor, constant: 22),
+            hourlyCollectionView.heightAnchor.constraint(equalToConstant: 84),
+            hourlyCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hourlyCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
 }
