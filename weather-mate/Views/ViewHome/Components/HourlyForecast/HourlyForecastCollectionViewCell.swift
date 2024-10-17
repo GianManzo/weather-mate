@@ -30,10 +30,19 @@ class HourlyForecastCollectionViewCell: UICollectionViewCell, ConfigurableView {
                           font: .smallSemiBold,
                           alignment: .center)
     }()
-    
+
     lazy var temperatureLabel: UILabel = {
         createCustomLabel(text: "25°C",
                           font: .mediumSemiBold,
                           alignment: .center)
     }()
+
+    func setupHourlyForecastConstraints() {
+        NSLayoutConstraint.activate([
+            hourLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            hourLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            hourLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            hourLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        ])
+    }
 }

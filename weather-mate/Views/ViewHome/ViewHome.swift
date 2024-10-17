@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewHome: UIViewController, ConfigurableView {
+    var headerView: HeaderView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -19,12 +21,8 @@ class ViewHome: UIViewController, ConfigurableView {
     }
 
     func setupAddSubviews() {
+        headerView = HeaderView()
         addSubviews(backgroundView, headerView, statsStackView, hourlyForecastLabel, hourlyCollectionView)
-
-        // Adicionando subviews ao headerView
-        headerView.addSubview(headerCityLabel)
-        headerView.addSubview(temperatureCityLabel)
-        headerView.addSubview(weatherIconImageView)
     }
 
     lazy var backgroundView: UIImageView = {
@@ -35,28 +33,6 @@ class ViewHome: UIViewController, ConfigurableView {
         imageView.contentMode = .scaleAspectFill
 
         return imageView
-    }()
-
-    lazy var headerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-
-        view.backgroundColor = .offWhite
-        view.layer.cornerRadius = 20
-
-        return view
-    }()
-
-    lazy var headerCityLabel: UILabel = {
-        createCustomLabel(text: "New York",
-                          textColor: .textPrimary)
-    }()
-
-    lazy var temperatureCityLabel: UILabel = {
-        createCustomLabel(text: "25°C",
-                          font: .bigBold,
-                          textColor: .textPrimary,
-                          alignment: .left)
     }()
 
     lazy var statsStackView: UIStackView = {
@@ -106,16 +82,6 @@ class ViewHome: UIViewController, ConfigurableView {
                           alignment: .left)
     }()
 
-    lazy var weatherIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        imageView.image = UIImage(named: "sunIcon")
-        imageView.contentMode = .scaleAspectFit
-
-        return imageView
-    }()
-
     lazy var hourlyForecastLabel: UILabel = {
         createCustomLabel(text: "PREVISÃO POR HORA", font: .smallSemiBold, textColor: .offWhite, alignment: .center)
     }()
@@ -136,6 +102,43 @@ class ViewHome: UIViewController, ConfigurableView {
 
         return collectionView
     }()
+
+    private func setupViewHomeConstraints() {
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
+            headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 35),
+            headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -35),
+            headerView.heightAnchor.constraint(equalToConstant: 169),
+
+        ])
+
+        NSLayoutConstraint.activate([
+            statsStackView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
+            statsStackView.widthAnchor.constraint(equalToConstant: 206),
+            statsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+
+        NSLayoutConstraint.activate([
+            hourlyForecastLabel.topAnchor.constraint(equalTo: statsStackView.bottomAnchor, constant: 29),
+            hourlyForecastLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
+            hourlyForecastLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35),
+
+        ])
+
+        NSLayoutConstraint.activate([
+            hourlyCollectionView.topAnchor.constraint(equalTo: hourlyForecastLabel.bottomAnchor, constant: 22),
+            hourlyCollectionView.heightAnchor.constraint(equalToConstant: 84),
+            hourlyCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hourlyCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+    }
 }
 
 extension ViewHome: UICollectionViewDataSource {
