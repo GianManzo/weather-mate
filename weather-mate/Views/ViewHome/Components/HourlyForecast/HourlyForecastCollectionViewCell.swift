@@ -13,7 +13,7 @@ class HourlyForecastCollectionViewCell: UICollectionViewCell, ConfigurableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
-        contentView.backgroundColor = .black
+
         setupHourlyForecastConstraints()
     }
 
@@ -21,28 +21,50 @@ class HourlyForecastCollectionViewCell: UICollectionViewCell, ConfigurableView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupSubviews() {
-        addSubviews(hourLabel)
+    private func setupSubviews() {
+        contentView.addSubview(stackView)
     }
 
-    lazy var hourLabel: UILabel = {
+    private lazy var stackView: UIStackView = {
+        createCustomStackView(subviews: [hourLabel, iconImageView, temperatureLabel], axis: .vertical, spacing: 4) {
+            stackView in
+            stackView.layer.borderWidth = 1
+            stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
+            stackView.isLayoutMarginsRelativeArrangement = true
+            stackView.layer.borderColor = UIColor.offWhite.cgColor
+            stackView.layer.cornerRadius = 20
+        
+        }
+    }()
+
+    private lazy var hourLabel: UILabel = {
         createCustomLabel(text: "13:00",
                           font: .smallSemiBold,
                           alignment: .center)
     }()
 
-    lazy var temperatureLabel: UILabel = {
+    private lazy var temperatureLabel: UILabel = {
         createCustomLabel(text: "25°C",
                           font: .mediumSemiBold,
                           alignment: .center)
     }()
 
+    private lazy var iconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "sunIcon")
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
     func setupHourlyForecastConstraints() {
         NSLayoutConstraint.activate([
-            hourLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            hourLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            hourLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            hourLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+
+            iconImageView.heightAnchor.constraint(equalToConstant: 33),
         ])
     }
 }
