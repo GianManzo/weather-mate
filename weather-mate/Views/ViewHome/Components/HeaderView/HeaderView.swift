@@ -52,7 +52,7 @@ class HeaderView: UIView, ConfigurableView {
             headerCityLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             headerCityLabel.heightAnchor.constraint(equalToConstant: 20),
 
-            temperatureCityLabel.topAnchor.constraint(equalTo: headerCityLabel.bottomAnchor, constant: 21),
+            temperatureCityLabel.topAnchor.constraint(equalTo: headerCityLabel.bottomAnchor, constant: 12),
             temperatureCityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 26),
 
             weatherIconImageView.heightAnchor.constraint(equalToConstant: 86),

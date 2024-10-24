@@ -13,8 +13,6 @@ class HourlyForecastCollectionViewCell: UICollectionViewCell, ConfigurableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
-
-        setupHourlyForecastConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -23,6 +21,7 @@ class HourlyForecastCollectionViewCell: UICollectionViewCell, ConfigurableView {
 
     private func setupSubviews() {
         contentView.addSubview(stackView)
+        setupHourlyForecastConstraints()
     }
 
     private lazy var stackView: UIStackView = {
@@ -33,7 +32,6 @@ class HourlyForecastCollectionViewCell: UICollectionViewCell, ConfigurableView {
             stackView.isLayoutMarginsRelativeArrangement = true
             stackView.layer.borderColor = UIColor.offWhite.cgColor
             stackView.layer.cornerRadius = 20
-        
         }
     }()
 
@@ -58,12 +56,9 @@ class HourlyForecastCollectionViewCell: UICollectionViewCell, ConfigurableView {
     }()
 
     func setupHourlyForecastConstraints() {
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        stackView.setConstraintsToParent(contentView)
 
+        NSLayoutConstraint.activate([
             iconImageView.heightAnchor.constraint(equalToConstant: 33),
         ])
     }

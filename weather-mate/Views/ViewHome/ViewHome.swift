@@ -22,7 +22,13 @@ class ViewHome: UIViewController, ConfigurableView {
 
     func setupAddSubviews() {
         headerView = HeaderView()
-        addSubviews(backgroundView, headerView, statsStackView, hourlyForecastLabel, hourlyCollectionView)
+        addSubviews(backgroundView,
+                    headerView,
+                    statsStackView,
+                    hourlyForecastLabel,
+                    hourlyCollectionView,
+                    dailyForecastLabel,
+                    dailyForecastTableView)
     }
 
     lazy var backgroundView: UIImageView = {
@@ -102,6 +108,22 @@ class ViewHome: UIViewController, ConfigurableView {
 
         return collectionView
     }()
+    
+    lazy var dailyForecastLabel: UILabel = {
+        createCustomLabel(text: "PREVISÃO POR DIA", font: .smallSemiBold, textColor: .offWhite, alignment: .center)
+    }()
+    
+    lazy var dailyForecastTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+    
+        tableView.showsVerticalScrollIndicator = false
+        tableView.dataSource = self
+        tableView.register(DailyForecastTableViewCell.self, forCellReuseIdentifier: DailyForecastTableViewCell.identifier)
+        tableView.backgroundColor = .clear
+        
+        return tableView
+    }()
 
     private func setupViewHomeConstraints() {
         NSLayoutConstraint.activate([
@@ -115,7 +137,7 @@ class ViewHome: UIViewController, ConfigurableView {
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
             headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 35),
             headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -35),
-            headerView.heightAnchor.constraint(equalToConstant: 169),
+            headerView.heightAnchor.constraint(equalToConstant: 150),
 
         ])
 
@@ -137,7 +159,19 @@ class ViewHome: UIViewController, ConfigurableView {
             hourlyCollectionView.heightAnchor.constraint(equalToConstant: 84),
             hourlyCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             hourlyCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            dailyForecastLabel.topAnchor.constraint(equalTo: hourlyCollectionView.bottomAnchor, constant: 29),
+            dailyForecastLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
+            dailyForecastLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35),
         ])
+        
+        NSLayoutConstraint.activate([
+            dailyForecastTableView.topAnchor.constraint(equalTo: dailyForecastLabel.bottomAnchor, constant: 20),
+            dailyForecastTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dailyForecastTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dailyForecastTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            ])
+        
     }
 }
 
@@ -151,6 +185,21 @@ extension ViewHome: UICollectionViewDataSource {
 
         return cell
     }
+}
+
+
+extension ViewHome: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: DailyForecastTableViewCell.identifier, for: indexPath)
+        
+        return cell
+    }
+    
+    
 }
 
 //    override func viewDidAppear(_ animated: Bool) {
